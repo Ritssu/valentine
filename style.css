@@ -1,0 +1,72 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f8d7da;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+h1 {
+  color: #a4243b;
+  margin-bottom: 20px;
+  font-size: 2rem;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center; /* tombol tetap sejajar waktu Yes membesar */
+  gap: 12px;
+  margin-bottom: 30px;
+}
+
+button {
+  border: none;
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
+  padding: 10px 20px;
+  font-size: 18px;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.yes-button {
+  background-color: #28a745;
+}
+
+.no-button {
+  background-color: #dc3545;
+}
+
+.cat {
+  width: 250px;
+  max-width: 80%;
+}
+
+/* Tombol No: gerakannya halus */
+.no-button {
+  transition: transform 0.25s ease, all 0.2s;
+}
+
+/* Confetti di halaman Yes */
+.confetti {
+  position: fixed;
+  top: -40px;
+  pointer-events: none;
+  animation: fall linear forwards;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(110vh) rotate(360deg);
+  }
+}

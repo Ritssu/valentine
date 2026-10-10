@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will You Be My Valentine?</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8d7da;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        h1 {
+            color: #a4243b;
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+
+        button {
+            border: none;
+            border-radius: 6px;
+            color: white;
+            cursor: pointer;
+            padding: 10px 20px;
+            font-size: 18px;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .yes-button {
+            background-color: #28a745;
+        }
+
+        .no-button {
+            background-color: #dc3545;
+        }
+
+        .cat {
+            width: 220px;
+            max-width: 80%;
+            margin: 0 auto;
+        }
+
+        #yesPage {
+            display: none;
+        }
+
+        .confetti {
+            position: fixed;
+            top: -40px;
+            animation: jatuh linear forwards;
+            pointer-events: none;
+        }
+
+        @keyframes jatuh {
+            to {
+                transform: translateY(110vh) rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Musik (file musik.mp3 taruh di folder yang sama) -->
+    <audio id="musik" src="musik.mp3" loop></audio>
+
+    <!-- Tampilan awal -->
+    <div class="container" id="mainPage">
+        <h1>Will you be my Valentine?</h1>
+
+        <div class="buttons">
+            <button class="yes-button" onclick="handleYesClick()">Yes</button>
+            <button class="no-button" onclick="handleNoClick()">No</button>
+        </div>
+
+        <img class="cat" src="cat.gif" alt="Kucing lucu">
+    </div>
+
+    <!-- Tampilan setelah klik Yes -->
+    <div class="container" id="yesPage">
+        <h1>Yeayyy! Makasih ya 💖</h1>
+        <!-- Kalau cat_happy.gif tidak ada, otomatis pakai cat.gif -->
+        <img class="cat" src="cat_happy.gif" alt="Kucing senang" onerror="this.onerror=null; this.src='cat.gif';">
+    </div>
+
+    <script>
+        const messages = [
+            "Yakin?",
+            "Coba pikir lagi deh...",
+            "Beneran nih?",
+            "Please dong...",
+            "Aku bakal sedih lho :(",
+            "Kasih kesempatan dong",
+            "Jangan gitu dong...",
+            "Hati aku hancur :'(",
+        ];
+
+        let messageIndex = 0;
+
+        function playMusic() {
+            const musik = document.getElementById("musik");
+            if (musik.paused) {
+                musik.play().catch(function () { });
+            }
+        }
+
+        function handleNoClick() {
+            playMusic();
+
+            const noButton = document.querySelector(".no-button");
+            const yesButton = document.querySelector(".yes-button");
+
+            noButton.textContent = messages[messageIndex];
+            messageIndex = (messageIndex + 1) % messages.length;
+
+            const currentSize = parseFloat(window.getComputedStyle(yesButton).fontSize);
+            yesButton.style.fontSize = `${currentSize * 1.5}px`;
+        }
+
+        function handleYesClick() {
+            playMusic();
+
+            document.getElementById("mainPage").style.display = "none";
+            document.getElementById("yesPage").style.display = "block";
+
+            const pieces = ["💖", "💕", "🎉", "✨", "💗", "🎊"];
+            setInterval(function () {
+                const el = document.createElement("span");
+                el.className = "confetti";
+                el.textContent = pieces[Math.floor(Math.random() * pieces.length)];
+                el.style.left = Math.random() * 100 + "vw";
+                el.style.fontSize = 18 + Math.random() * 22 + "px";
+                el.style.animationDuration = 3 + Math.random() * 3 + "s";
+                document.body.appendChild(el);
+                setTimeout(() => el.remove(), 6000);
+            }, 150);
+        }
+    </script>
+
+</body>
+
+</html>
